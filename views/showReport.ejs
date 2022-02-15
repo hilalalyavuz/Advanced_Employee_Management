@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/showReport.css" />
+</head>
+
+<body>
+    <div class="page">
+        <div class="sidebar">
+            <div class="logo_bar">
+                <div class="logo_img"><img src="/images/logo.png" /></div>
+            </div>
+            <ul class="nav_list">
+                <li>
+                    <a href="/index">
+                        <span class="links_name">Anasayfa</span>
+                    </a>
+                    <span class="tooltip">Anasayfa</span>
+                </li>
+                <li>
+                    <% if(loginn){ %>
+                    <a href="/profile">
+                        <span class="links_name">Profilim</span>
+                    </a>
+                    <span class="tooltip">Profilim</span>
+                    <% } %>
+                </li>
+                <li>
+                    <% if(role==2){ %>
+                    <a href="/dailyReport">
+                        <span class="links_name">Gün Listesi</span>
+                    </a>
+                    <span class="tooltip">Gün Listesi</span>
+                    <% } %>
+                </li>
+                <li>
+                    <% if(role==2){ %>
+                    <a href="/ownerPanel">
+                        <span class="links_name">Çalışan Paneli</span>
+                    </a>
+                    <span class="tooltip">Çalışan Paneli</span>
+                    <% } %>
+                </li>
+            </ul>
+            <div class="profile_content">
+                <div class="name"><%=fullname%></div>
+                <div class="logout"><a href="/login" id="logout"><i class="fa fa-sign-out"
+                            style="font-size:20px"></i></a> </div>
+            </div>
+        </div>
+
+        <div class="homepage">
+            <div class="form">
+                <div class="genel">
+                    <div class="left_content">
+                        <ul class="table">
+                            <li class="table-header">
+                                <div class="col col-1">Adı</div>
+                                <div class="col col-2">E-posta</div>
+                                <div class="col col-3">GÜN</div>
+                            </li>
+                        </ul>
+                        <% if(showReport.length >0){%> <%showReport.forEach(user => { %>
+                        <ul class="table">
+                            <li class="table-row">
+                                <div class="col col-1"><%= user.fullname %></div>
+                                <div class="col col-2"><%= user.user_mail %></div>
+                                <div class="col col-3"><%= user.rsvDate %></div>
+                                <a href="/markpositive/<%=user.user_id%>"><button class="btn-risk">Pozitif</button></a>
+                                <a href="/markcontact/<%=user.user_id%>"><button class="btn">Temaslı</button></a>
+                            </li>
+                        </ul>
+                        <% }) %> <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

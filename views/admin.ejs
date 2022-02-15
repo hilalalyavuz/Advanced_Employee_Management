@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/css/admin.css" />
+  </head>
+  <body>
+    <div class="page">
+      <div class="sidebar">
+        <div class="logo_bar">
+          <div class="logo_img"><img src="/images/logo.png" /></div>
+        </div>
+        <ul class="nav_list">
+          <li>
+            <a href="/index">
+              <span class="links_name">Anasayfa</span>
+            </a>
+            <span class="tooltip">Anasayfa</span>
+          </li>
+          <li>
+            <% if(loginn){ %>
+            <a href="/profile">
+              <span class="links_name">Profilim</span>
+            </a>
+            <span class="tooltip">Profilim</span>
+            <% } %>
+          </li>
+          <li>
+            <% if(role==2){ %>
+            <a href="/dailyReport">
+              <span class="links_name">Gün Listesi</span>
+            </a>
+            <span class="tooltip">Gün Listesi</span>
+            <% } %>
+          </li>
+        </ul>
+        <div class="profile_content">
+          <div class="name"><%=fullname%></div>
+          <div class="logout">
+            <a href="/login" id="logout"
+              ><i class="fa fa-sign-out" style="font-size: 20px"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="homepage">
+        <div class="form">
+          <div class="genel">
+            <div class="left_content">
+              <ul class="table">
+                <li class="table-header">
+                  <div class="col col-1">Adı</div>
+                  <div class="col col-2">Soyadı</div>
+                  <div class="col col-3">E-posta</div>
+                  <div class="col col-4">ŞİRKET</div>
+                  <div class="col col-5">ROL</div>
+                  <div class="col col-6">SİL</div>
+                  <div class="col col-7">YETKİ</div>
+                </li>
+              </ul>
+
+              <% if(users.length >0){%> <%users.forEach(user => { %>
+              <ul class="table">
+                <li class="table-row">
+                  <div class="col col-1"><%= user.name %></div>
+                  <div class="col col-2"><%= user.surname %></div>
+                  <div class="col col-3"><%= user.email %></div>
+                  <div class="col col-4"><%= user.companyName %></div>
+                  <div class="col col-5"><%= user.role %></div>
+                  <a href="/user/delete/<%=user.id%>"><button class="btn-del">Sil</button></a>
+                  <a href="/setAdmin/<%=user.id%>"><button class="btn">Admin Yap</button></a>
+                  <a href="/setOwner/<%=user.id%>"><button class="btn">Owner Yap</button></a>
+                  <a href="/setEmployee/<%=user.id%>"><button class="btn">Employee Yap</button></a>
+                </li>
+              </ul>
+              <% }) %> <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

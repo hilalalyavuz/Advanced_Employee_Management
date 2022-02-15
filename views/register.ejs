@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+</head>
+
+<body>
+    
+    <section id="category">
+        <div class="category container">
+            <div class="signup__container">
+                <div class="container__child signup__thumbnail">
+                    <div class="thumbnail__content text-center">
+                        <h2 class="heading--primary">Welcome to Ka'Chow</h2>
+                        <h2 class="heading--secondary">It's just an empty cup</h2>
+                    </div>
+                    <div class="signup__overlay">
+                    </div>
+                </div>
+                <div class="container__child signup__form">
+                    <form action="/user/register" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control" type="text" name="name" id="name" placeholder="Name"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Surname</label>
+                            <input class="form-control" type="text" name="surname" id="lastname"
+                                placeholder="Surname" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input class="form-control" type="text" name="email" id="email" placeholder="Email"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordRepeat">Company Name</label>
+                            <input class="form-control" type="text" name="companyName" id="companyName"
+                                placeholder="Company Name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordRepeat">Password</label>
+                            <input class="form-control" type="password" name="password" id="password"
+                                placeholder="Password" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordRepeat">Password Approve</label>
+                            <input class="form-control" type="password" name="passwordApprove" id="passwordApprove"
+                                placeholder="Password Approve" required />
+                        </div>
+                        <div class="m-t-lg">
+                            <ul class="list-inline">
+                                <li>
+                                    <button class="btn btn--form" type="submit">Register</button>
+                                </li>
+                                <li>
+                                    <a class="signup__link" href="/login">I am already Registered</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </section>
+</body>
+
+</html>

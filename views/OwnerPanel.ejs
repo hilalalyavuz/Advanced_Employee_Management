@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/OwnerPanel.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Owner Panel</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="sidebar">
+
+            <div class="logo_bar">
+                <div class="logo_img"><img src="/images/logo.png"></div>
+            </div>
+            <ul class="nav_list">
+                <li>
+                    <a href="/index">
+                        <span class="links_name">Anasayfa</span>
+                    </a>
+                    <span class="tooltip">Anasayfa</span>
+                </li>
+                <li>
+                    <% if(loginn){ %>
+                    <a href="/profile">
+                        <span class="links_name">Profilim</span>
+                    </a>
+                    <span class="tooltip">Profilim</span>
+                    <% } %>
+                </li>
+                <li>
+                    <% if(role==2){ %>
+                    <a href="/dailyReport">
+                        <span class="links_name">Gün Listesi</span>
+                    </a>
+                    <span class="tooltip">Gün Listesi</span>
+                    <% } %>
+                </li>
+                <li>
+                    <% if(role==2){ %>
+                    <a href="/ownerPanel">
+                        <span class="links_name">Çalışan Paneli</span>
+                    </a>
+                    <span class="tooltip">Çalışan Paneli</span>
+                    <% } %>
+                </li>
+            </ul>
+            <div class="profile_content">
+                <div class="name"><%=fullname%></div>
+                <div class="logout"><a href="/login" id="logout"><i class="fa fa-sign-out"
+                            style="font-size:20px"></i></a> </div>
+            </div>
+        </div>
+
+        <div class="homepage">
+            <section>
+                <div class="tab">
+                    <button class="tablinks" onclick="ownerCompany(event, 'createRoom')" id="defaultOpen">
+                        Oda Ekle
+                    </button>
+                    <button class="tablinks" onclick="ownerCompany(event, 'updateRoom')">
+                        Oda Düzenle
+                    </button>
+                    <button class="tablinks" onclick="ownerCompany(event, 'createTable')">
+                        Masa Düzenle
+                    </button>
+                    <button class="tablinks" onclick="ownerCompany(event, 'mark')">
+                        Çalışan Sağlık Durumu
+                    </button>
+                    <button class="tablinks" onclick="ownerCompany(event, 'RBA')">
+                        Çalışanın Rolü
+                    </button>
+                    <button class="tablinks" onclick="ownerCompany(event, 'addUser')">
+                        Çalışan Ekle
+                    </button>
+                    <button class="tablinks" onclick="ownerCompany(event, 'deleteuser')">
+                        Çalışan Sil
+                    </button>
+                </div>
+
+                <div id="createRoom" class="tabcontent">
+                    <div class="eventspart">
+                        <h3 style="font-size: 24px; margin: 10px; color: black">
+                            Odalar
+                        </h3>
+                        <form action="/ownerAddRoom" method="POST">
+                            <div class="event-text">
+                                <div class="event-top">
+                                    <label for="room_name">Oda Adı</label>
+                                    <textarea id="room_name" name="room_name" rows="4" cols="15"></textarea>
+                                </div>
+                                <div class="event-top">
+                                    <label for="room_capacity">Oda Kapasitesi</label>
+                                    <textarea id="room_capacity" name="room_capacity" rows="4" cols="15"></textarea>
+                                </div>
+                            </div>
+                            <div class="buttonpart">
+                                <button class="button" type="submit">Oda Ekle</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="updateRoom" class="tabcontent">
+                    <div class="eventspart">
+                        <h3 style="font-size: 24px; margin: 10px; color: black">
+                            Odalar
+                        </h3>
+                        <% if(changeRoom.length >0){%>
+                        <%changeRoom.forEach(rooms => { %>
+                        <form action="/updaterooms/<%=rooms.roomId%>" method="POST">
+                            <div class="event-text">
+                                <div class="event-top">
+                                    <label for="room_name">Oda İsmi</label>
+                                    <textarea id="room_name" name="room_name" rows="4" cols="15"
+                                        placeholder="<%=rooms.roomName%>"></textarea>
+                                </div>
+                                <div class="event-top">
+                                    <label for="room_capacity">Oda Kapasitesi</label>
+                                    <textarea id="room_capacity" name="room_capacity" rows="4" cols="15"
+                                        placeholder="<%=rooms.capacity%>"></textarea>
+                                </div>
+                            </div>
+                            <div class="buttonpart">
+                                <a><button class="button" type="submit">Oda Güncelle</button></a>
+                            </div>
+                        </form>
+                        <% }) %>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div id="createTable" class="tabcontent">
+                    <div class="eventspart">
+                        <h3 style="font-size: 24px; margin: 10px; color: black">
+                            Masalar
+                        </h3>
+                        <form action="/setchair" method="POST">
+                            <div class="event-text">
+                                <div class="event-top">
+                                    <label for="chairCount">Masa Sayısı</label>
+                                    <textarea id="chairCount" name="chairCount" rows="4" cols="15"></textarea>
+                                </div>
+                            </div>
+                            <div class="buttonpart">
+                                <a><button class="button" type="submit">Masa Ekle</button></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="updateTable" class="tabcontent">
+                    <div class="eventspart">
+                        <h3 style="font-size: 24px; margin: 10px; color: black">
+                            Masalar
+                        </h3>
+                        <form action="" method="POST">
+                            <div class="event-text">
+                                <div class="event-top">
+                                    <label for="user_name">Kat numarası</label>
+                                    <textarea id="user_name" name="user_name" rows="4" cols="15"></textarea>
+                                </div>
+                                <div class="event-top">
+                                    <label for="user_name">Masa Sayısı</label>
+                                    <textarea id="user_name" name="user_name" rows="4" cols="15"></textarea>
+                                </div>
+                            </div>
+                            <div class="buttonpart">
+                                <a><button class="button" type="submit">Masa Güncelle</button></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="mark" class="tabcontent">
+                    <div class="showpart">
+                        <table style="width: 100%">
+                            <tr>
+                                <th>Fonksiyon:Sağlık Durumunu İşaretle</th>
+
+                                <th>Çalışanın Adı</th>
+                                <th>Çalışanın Durumu</th>
+                            </tr>
+
+                            <% if(deleteUsers.length >0){%>
+                            <%deleteUsers.forEach(dusers => { %>
+
+                            <tr>
+                                <td>
+                                    <a href="/markpositive/<%=dusers.user_id%>"><button class="button"
+                                            type="submit">Pozitif</button></a>
+                                    <a href="/markcontact/<%=dusers.user_id%>""><button class=" button"
+                                        type="submit">Temaslı</button></a>
+                                </td>
+                                <td><%=dusers.fullname%></td>
+                                <td><%=dusers.user_mail%></td>
+                            </tr>
+                            <% }) %>
+                            <% } %>
+
+                            <tr></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="RBA" class="tabcontent">
+                    <div class="showpart">
+                        <table style="width: 100%">
+                            <tr>
+                                <th>Fonksiyon:Rol Belirle</th>
+
+                                <th>Çalışanın Adı</th>
+                                <th>Çalışanın Rolü</th>
+                            </tr>
+                            <% if(rolesUsers.length >0){%>
+                            <%rolesUsers.forEach(users => { %>
+
+                            <tr>
+                                <td>
+                                    <a href="/setOwnerOwner/<%=users.user_id%>"><button class="button"
+                                            type="submit">Owner Yap</button></a>
+                                    <a href="/setEmployeeOwner/<%=users.user_id%>"><button class="button"
+                                            type="submit">Employee Yap</button></a>
+                                </td>
+
+                                <td><%=users.fullname%></td>
+                                <td><%=users.user_role%></td>
+                            </tr>
+                            <% }) %>
+                            <% } %>
+
+                            <tr></tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="addUser" class="tabcontent">
+                    <div class="eventspart">
+                        <h3 style="font-size: 24px; margin: 10px; color: black">
+                            Employees
+                        </h3>
+                        <form action="/adduserasowner" method="POST">
+                            <div class="event-text">
+                                <div class="event-top">
+                                    <label for="name">İsim</label>
+                                    <textarea id="name" name="name" rows="4" cols="15"></textarea>
+                                </div>
+                                <div class="event-top">
+                                    <label for="surname">Soy isim</label>
+                                    <textarea id="surname" name="surname" rows="4" cols="15"></textarea>
+                                </div>
+                                <div class="event-top">
+                                    <label for="mail">E-Mail</label>
+                                    <textarea id="mail" name="mail" rows="4" cols="15"></textarea>
+                                </div>
+                            </div>
+                            <div class="buttonpart">
+                                <a><button class="button" type="submit">Çalışanı Ekle</button></a>
+                            </div>
+                        </form>
+                        <div class="showpart">
+                            <table style="width: 100%">
+                                <tr>
+                                    <th>Verify Olmayan Çalışanlar</th>
+                                    <th>Çalışanın Adı</th>
+                                    <th>Çalışanın Maili</th>
+                                </tr>
+                                <% if(verifiedUsers.length >0){%>
+                                <%verifiedUsers.forEach(users => { %>
+                                <tr>
+                                    <td><a href="/verifyuser/<%=users.user_id%>">
+                                            <button class="button" type="submit">Verify</button>
+                                        </a></td>
+                                    <td><%=users.fullname%></td>
+                                    <td><%=users.user_mail%></td>
+                                </tr>
+                                <% }) %>
+                                <% } %>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="deleteuser" class="tabcontent">
+                    <div class="showpart">
+                        <table style="width: 100%">
+                            <tr>
+                                <th>Fonksyion:Kullanıcı Sil</th>
+                                <th>Çalışanın Adı</th>
+                                <th>Çalışanın Rolü</th>
+                            </tr>
+                            <% if(deleteUsers.length >0){%>
+                            <%deleteUsers.forEach(dusers => { %>
+                            <tr>
+                                <td>
+                                    <a href="/deleteduser/<%=dusers.user_id%>">
+                                        <button class="button" type="submit">Çalışanı Sil</button>
+                                    </a>
+                                </td>
+                                <td><%=dusers.fullname%></td>
+                                <td><%=dusers.user_mail%></td>
+                            </tr>
+                            <% }) %>
+                            <% } %>
+                            <tr></tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+    <script>
+        function ownerCompany(evt, officeName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(officeName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.getElementById("defaultOpen").click();
+    </script>
+</body>
+
+</html>

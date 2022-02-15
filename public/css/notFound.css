@@ -1,0 +1,30 @@
+.mid-part {
+    display: flex;
+    flex-direction: column;
+}
+.error-image{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.error-image-fix{
+    object-fit: cover;
+    width: 75%;
+    margin: auto;
+    height: auto;
+}
+.button{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    cursor: pointer;
+    border: solid black 1px;
+    min-width: 6rem;
+    min-height: 3rem;
+    margin-top: 25px;
+    background-color: #004aad;
+    border-radius: 3rem;
+    box-shadow: 0.2rem 0.3rem;
+    margin-bottom: 2rem;
+    align-items: center;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/dailyReport.css" />
+    <title>Çalışan Raporu</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="sidebar">
+            <div class="logo_bar">
+                <div class="logo_img"><img src="/images/logo.png" /></div>
+            </div>
+            <ul class="nav_list">
+                <li>
+                    <a href="/index">
+                        <span class="links_name">Anasayfa</span>
+                    </a>
+                    <span class="tooltip">Anasayfa</span>
+                </li>
+                <li>
+                    <% if(loginn){ %>
+                    <a href="/profile">
+                        <span class="links_name">Profilim</span>
+                    </a>
+                    <span class="tooltip">Profilim</span>
+                    <% } %>
+                </li>
+                <li>
+                    <% if(role==2){ %>
+                    <a href="/dailyReport">
+                        <span class="links_name">Gün Listesi</span>
+                    </a>
+                    <span class="tooltip">Gün Listesi</span>
+                    <% } %>
+                </li>
+                <li>
+                    <% if(role==2){ %>
+                    <a href="/ownerPanel">
+                        <span class="links_name">Çalışan Paneli</span>
+                    </a>
+                    <span class="tooltip">Çalışan Paneli</span>
+                    <% } %>
+                </li>
+            </ul>
+            <div class="profile_content">
+                <div class="name"><%=fullname%></div>
+                <div class="logout"><a href="/login" id="logout"><i class="fa fa-sign-out"
+                            style="font-size:20px"></i></a> </div>
+            </div>
+        </div>
+        <div class="homepage">
+            <form action="/showreport" method="POST">
+                <div class="room">
+    
+                    <div class="yazi">
+                        <h2>Gün Listele</h2>
+                    </div>
+                    <div class="yazi">
+                        <p>Aşağıdan tarih seçerek, seçmiş olduğunuz tarih için hangi çalışanlarınızın şirkette rezervasyonunun olduğu bilgisine ulaşabilirsiniz.</p>
+                    </div>
+    
+                    <fieldset class="date">
+    
+                        <legend>Tarih</legend>
+                        <input type="date" name="date" id="date" />
+    
+                    </fieldset>
+    
+                    <div class="buton">
+                        <button class="button" style="cursor: pointer;" type="submit">Rezervleri Listele</button>
+                    </div>
+    
+                </div>
+            </form>
+        </div>
+</body>
+
+</html>
